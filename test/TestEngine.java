@@ -7,15 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class TestEngine {
-    // Fields
-    final static int FPS = 30;
-    final static int SCREEN_WIDTH = 1920/2;
-    final static int SCREEN_HEIGHT = 1080/2;
-    static Thread thread = new Thread();
-    static int currentIndex = 0;
-    static TextField msgBox = new TextField(32);
-    static JPanel panel = new JPanel();
-    static JFrame window = new JFrame();
     static String[] rappers = { "GuiseppeBigGains",
         "BloodBoyScrump",
         "BigMud",
@@ -255,54 +246,6 @@ public class TestEngine {
         };
 
     public static void main(String[] args) {
-
-      //Test suite for the engine
-      window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      window.setResizable(false);
-      window.setTitle("Fuck ass chode dick cum fart anus wiener cock turd shit queef");
-
-
-      KeyListener keyHandler = new KeyListener() {
-          @Override
-          public void keyTyped(KeyEvent e) {
-          }
-
-          @Override
-          public void keyPressed(KeyEvent e) {
-            int code = e.getKeyCode();
-            switch (code){
-                case KeyEvent.VK_E:
-                    nextMessage();
-                case KeyEvent.VK_Q:
-                    previousMessage();
-            }
-          }
-          @Override
-          public void keyReleased(KeyEvent e) {
-          }
-      };
-
-
-
-      panel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-      panel.setBackground(Color.BLACK);
-      panel.setDoubleBuffered(true);
-      panel.addKeyListener(keyHandler);
-      panel.setFocusable(true);
-      window.add(msgBox);
-      window.add(panel);
-
-  }
-  public static void nextMessage(){
-        currentIndex++;
-        draw();
-  }
-  public static void previousMessage(){
-        currentIndex = currentIndex == 0 ? rappers.length - 1 : currentIndex--;
-        draw();
-  }
-  public static void draw(){
-        msgBox.setText(rappers[currentIndex]);
-        panel.repaint();
-  }
+        MessageBoxes m = new MessageBoxes();
+    }
 }

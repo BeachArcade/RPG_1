@@ -1,6 +1,5 @@
 package entities;
 
-import entities.Entity;
 import game.GamePanel;
 import game.KeyHandler;
 
@@ -29,11 +28,14 @@ public class Player extends Entity {
         screenX = (gamePanel.SCREEN_WIDTH/2) - (gamePanel.TILE_SIZE/2);
         screenY = (gamePanel.SCREEN_HEIGHT/2) - (gamePanel.TILE_SIZE/2);
 
+        // Solid area
         solidBody = new Rectangle();
-        solidBody.x = (int)(gamePanel.TILE_SIZE * .25) + gamePanel.TILE_SIZE/2; // quarter of player
-        solidBody.y = (int)(gamePanel.TILE_SIZE * .5) - gamePanel.TILE_SIZE/2; // half of player
-        solidBody.height = (int)(gamePanel.TILE_SIZE * .8); // 60% size
-        solidBody.width = (int)(gamePanel.TILE_SIZE * .3); // 60% size
+        solidBody.x = (int)((gamePanel.TILE_SIZE ) + gamePanel.TILE_SIZE/2); // quarter of player
+        solidBody.y = (int)(gamePanel.TILE_SIZE) - gamePanel.TILE_SIZE/2; // half of player
+        solidBody.height = (int)(gamePanel.TILE_SIZE); //32px
+        solidBody.width = (int)(gamePanel.TILE_SIZE * .35); // 60% size
+        solidBodyDefaultX = solidBody.x;
+        solidBodyDefaultY = solidBody.y;
 
         setDefaultValues();
 
@@ -64,9 +66,14 @@ public class Player extends Entity {
                 direction = "left";
             if(keyHandler.rightPress)
                 direction = "right";
-            // check collision
+
+            // check environment collision
             collisonOn = false;
             gamePanel.collisionCheck.checkTile(this);
+
+            // check object collision
+            int objIndex = gamePanel.collisionCheck.checkObject(this, true);
+
             if(!collisonOn){
                 switch (direction){
                     case "up" -> {
@@ -129,7 +136,5 @@ public class Player extends Entity {
             default -> null;
         };
         g.drawImage(image, screenX, screenY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
-        g.draw(hitBox);
-        g.draw(solidBody);
     }
 }

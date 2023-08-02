@@ -32,6 +32,8 @@ public class RPG {
     window.setLocationRelativeTo(null);
     window.setVisible(true);
 
+    // Load and start game
+    gamePanel.setupGame();
     gamePanel.startGameThread();
   }
 }

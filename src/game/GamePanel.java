@@ -1,6 +1,7 @@
 package game;
 
 import entities.Player;
+import obj.SuperObject;
 import tiles.*;
 
 import javax.imageio.ImageIO;
@@ -10,11 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable{
-    int tile1x;
-    int tile1y;
-    int tile2y;
-    int tile2x;
-    BufferedImage red;
 
     // Screen settings
     public final int ORIGINAL_TILE_SIZE = 32;  // tiles.Tile set size 32x32
@@ -41,18 +37,16 @@ public class GamePanel extends JPanel implements Runnable{
     public Player player = new Player(this, keyHandler);
     public TileManager tileManager = new TileManager(this);
     public CollisionCheck collisionCheck = new CollisionCheck(this);
+    public SuperObject[] objectContainer = new SuperObject[10];
+    public AssetSetter assetSetter = new AssetSetter(this);
 
+    /* Constructor */
     public GamePanel(){
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
-        try{
-            red = ImageIO.read(getClass().getResourceAsStream("/player/box.png"));
-        } catch (IOException e){
-            e.printStackTrace();
-        }
     }
 
     // start
@@ -60,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread = new Thread(this);
         gameThread.start();
     }
-
+//? Alternate game loop
 //    @Override
 //    public void run() {
 //        // Game Loop
@@ -134,10 +128,28 @@ public class GamePanel extends JPanel implements Runnable{
         player.update();
     }
     public void paintComponent(Graphics g){
+        // Cast Graphics to Graphics2d
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        // Tiles
         tileManager.draw(g2);
+        // Objects
+        drawObjects(g2);
+        // Player
         player.draw(g2);
+
+        // Clean
         g2.dispose();
+    }
+    public void setupGame(){
+        assetSetter.setObject();
+    }
+    private void drawObjects(Graphics2D g){
+        for(SuperObject obj: objectContainer){
+            if(obj != null){
+                obj.draw(g, this);
+            }
+        }
     }
 }

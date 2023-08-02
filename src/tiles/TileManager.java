@@ -27,7 +27,7 @@ public class TileManager {
    // constructor
     public TileManager(GamePanel gamePanel){
         this.gamePanel = gamePanel;
-        tileMap = makeMap("map04");
+        tileMap = makeMap("map05");
         //MapManager m = new MapManager();
         //tileMap = m.makeRandom(30,30);
         xOffset = 0;
@@ -95,7 +95,6 @@ public class TileManager {
 //        }
 //    }
 
-    // TODO Limit size to 16x12 tiles (possibly 17x13)
     public void draw(Graphics2D g){
         int i = 0;
         int xBound = Math.min(gamePanel.WORLD_ROW, tileMap.get(0).size());
