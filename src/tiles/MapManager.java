@@ -10,17 +10,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+
+// Manages the maps
 public class MapManager {
     public ArrayList<ArrayList<Tile>> makeMap(String mapName){
+        // Map for tiles
         ArrayList<ArrayList<Tile>> tileMap = new ArrayList<>();
+
+        // Text file to be converted to a TileMap
         ArrayList<String[]> textMap = new ArrayList<>();
-        int height = 0;
+
+        // Reads the map text file
         InputStream is = getClass().getResourceAsStream("/maps/"+mapName+".txt");
         Scanner sc = new Scanner(is);
         while (sc.hasNextLine()){
             String line = sc.nextLine();
-            ++height;
-            //System.out.println(++height +":\t" + line);
             textMap.add(line.split(" "));
         }
         for(String[] line : textMap){
@@ -32,6 +36,9 @@ public class MapManager {
         }
         return tileMap;
     }
+
+    //! Debug stuff
+    // Makes a random map
     public ArrayList<ArrayList<Tile>> makeRandom(int x, int y){
         ArrayList<ArrayList<Tile>> map = new ArrayList<>();
         for(int i = 0; i < y; i++){

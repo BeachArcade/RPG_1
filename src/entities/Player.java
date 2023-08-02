@@ -110,6 +110,7 @@ public class Player extends Entity {
             hitBox.y = screenY + gamePanel.TILE_SIZE/5;
         }
     }
+    // Load images
     public void getPlayerImage(){
         try{
             up1 = ImageIO.read(getClass().getResourceAsStream("/player/up1.png"));
@@ -125,9 +126,7 @@ public class Player extends Entity {
         }
     }
     public void draw(Graphics2D g){
-//        g.setColor(Color.decode("#ECCAD6"));
-//        g.fillRect(x,y,gamePanel.TILE_SIZE, gamePanel.TILE_SIZE);
-
+        // get the appropriate direction and action
         BufferedImage image = switch (direction) {
             case "up" -> spriteNum == 1 ? up1 : up2;
             case "down" -> spriteNum == 1 ? down1 : down2;

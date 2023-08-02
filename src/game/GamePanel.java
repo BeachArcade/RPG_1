@@ -89,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void run() {
         // set vars
         double drawInterval = 1000000000/FPS;
-        double delta = 0;
+        double timeToDraw = 0;
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
@@ -99,15 +99,15 @@ public class GamePanel extends JPanel implements Runnable{
         while(gameThread != null){
             // set times
             currentTime = System.nanoTime();
-            delta += (currentTime - lastTime) / drawInterval;
+            timeToDraw += (currentTime - lastTime) / drawInterval;
             timer += (currentTime - lastTime);
             lastTime = currentTime;
 
             // when it's time to draw
-            if (delta >= 1) {
+            if (timeToDraw >= 1) {
                 update();
                 repaint();
-                delta--;
+                timeToDraw--;
 
                 //Debug
                 if (showFPS) {
@@ -127,6 +127,13 @@ public class GamePanel extends JPanel implements Runnable{
     public void update(){
         player.update();
     }
+
+    /* Draws everything
+    * ORDER:
+    * 1. Tiles
+    * 2. Objects
+    * 3. Player
+    * */
     public void paintComponent(Graphics g){
         // Cast Graphics to Graphics2d
         super.paintComponent(g);
@@ -145,6 +152,8 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame(){
         assetSetter.setObject();
     }
+
+    //! Should be moved to an object manager class (perhaps SuperObject?)
     private void drawObjects(Graphics2D g){
         for(SuperObject obj: objectContainer){
             if(obj != null){

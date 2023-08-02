@@ -12,11 +12,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-//TODO set up a 'visible area' for scrolling
-/* player stays at (0,0) (cartesian) and map moves around
- * player will move from (0,0) once map boundary is hit
- */
+// Manages the drawing of tiles
 public class TileManager {
     // fields
     GamePanel gamePanel;
@@ -69,36 +65,13 @@ public class TileManager {
         return tileMap;
     }
 
-//    public void draw(Graphics2D g) {
-//        // Current position the world is at
-//        int worldX = 0;
-//        int worldY = 0;
-//
-//        // Map sizes
-//        int mapCol = tileMap.get(0).size();
-//        int mapRow = tileMap.size();
-//
-//        // Set boundaries to screen size or map size
-//        int xBound = Math.min(mapCol, gamePanel.WORLD_COL);
-//        int yBound = Math.min(mapRow, gamePanel.WORLD_ROW);
-//
-//        for(int screenY = 0; screenY < yBound; screenY++){
-//            for(int screenX = 0; screenX < xBound; screenX++){
-//                int xTile = screenX + worldX;
-//                int yTile = screenY + worldY;
-//                g.drawImage(
-//                    tileMap.get(yTile).get(xTile).image,
-//                    screenX * gamePanel.TILE_SIZE + gamePanel.player.xMovement,
-//                    screenY * gamePanel.TILE_SIZE + gamePanel.player.yMovement,
-//                    gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
-//            }
-//        }
-//    }
-
+    // Draws all seen tiles
     public void draw(Graphics2D g){
-        int i = 0;
+        // map size
         int xBound = Math.min(gamePanel.WORLD_ROW, tileMap.get(0).size());
         int yBound = Math.min(gamePanel.WORLD_COL, tileMap.size());
+
+        // Loop to draw all seen tiles
         for (int worldRow = 0; worldRow < yBound; worldRow++) {
             for (int worldCol = 0; worldCol < xBound; worldCol++) {
                 // initialize

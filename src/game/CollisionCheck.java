@@ -3,7 +3,6 @@ package game;
 import entities.Entity;
 import obj.SuperObject;
 import tiles.Tile;
-//! problematic right now and could possibly use retooling
 public class CollisionCheck {
     private GamePanel gamePanel;
     public CollisionCheck(GamePanel gamePanel){
@@ -29,7 +28,6 @@ public class CollisionCheck {
 
         /* check direction, if reference blocks are solid set collision to true
             reference tiles are on location + playerSpeed
-            ! Sprite can enter too far down and right
          */
         switch (entity.direction){
             case "up" -> {
@@ -104,6 +102,7 @@ public class CollisionCheck {
         }
         return index;
     }
+    // Checks if an entity is colliding with a solid tile
     private boolean checkEntityCollison(SuperObject o, Entity e){
         return e.solidBody.intersects(o.solidBody);
     }
